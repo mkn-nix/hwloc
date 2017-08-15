@@ -12,14 +12,14 @@ GIT_OPT="--depth 1"
 
 THREADS="$(nproc --all)"
 
-rm -rf v
-git clone $GIT_OPT $GIT_URL -b $GIT_BNC h --recursive
-pushd h
+mkdir -p $CWD/inst
+
+git clone $GIT_OPT $GIT_URL -b $GIT_BNC hwloc --recursive
+pushd hwloc
 ./autogen.sh
-./configure --prefix=$CWD
+./configure --prefix=$CWD/inst
 make -j$THREADS
 make install
 
 echo "Finished successfully"
-rm -rf $CWD/h
 exit 0

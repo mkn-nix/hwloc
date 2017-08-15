@@ -6,8 +6,8 @@ parent: hw
 
 profile:
   - name: base
-    path: lib
-    inc: include
+    inc:  ./inst/include
+    path: ./inst/lib
 
   - name: hw
     parent: base
