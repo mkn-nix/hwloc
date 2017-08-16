@@ -4,22 +4,28 @@ set -e
 
 CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-[ -z "$(which cmake)" ] && echo "cmake is required to build viennacl" && exit 1;
-
 GIT_URL="https://github.com/open-mpi/hwloc"
 GIT_BNC="master"
 GIT_OPT="--depth 1"
+DIR="hwloc"
 
 THREADS="$(nproc --all)"
 
+rm -rf $CWD/inst
 mkdir -p $CWD/inst
 
-git clone $GIT_OPT $GIT_URL -b $GIT_BNC hwloc --recursive
-pushd hwloc
+HAS=1
+[ ! -d "$CWD/$DIR" ] && HAS=0 && git clone $GIT_OPT $GIT_URL -b $GIT_BNC $DIR --recursive
+
+pushd $DIR
+[ $HAS -eq 1 ] && git pull origin $GIT_BNC;
+
 ./autogen.sh
 ./configure --prefix=$CWD/inst
+make clean
 make -j$THREADS
 make install
+popd
 
 echo "Finished successfully"
 exit 0
