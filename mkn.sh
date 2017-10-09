@@ -5,7 +5,7 @@ set -e
 CWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 GIT_URL="https://github.com/open-mpi/hwloc"
-GIT_BNC="master"
+GIT_BNC="hwloc-1.11.8"
 GIT_OPT="--depth 1"
 DIR="hwloc"
 
